@@ -65,6 +65,12 @@ public class Field extends JPanel {
         balls.add(new BouncingBall(this));
 
     }
+    public void delball()
+    {
+
+        balls.remove(0);
+
+    }
 
     public void addKirp() {
 

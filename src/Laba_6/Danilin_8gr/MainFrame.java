@@ -51,6 +51,14 @@ public class MainFrame extends JFrame {
 
         menuBar.add(ballMenu);
         ballMenu.add(addBallAction);
+        Action delball = new AbstractAction("Удалить мяч") {
+            public void actionPerformed(ActionEvent event) {
+                field.delball( );
+            }
+        };
+
+        menuBar.add(ballMenu);
+        ballMenu.add(delball);
 
         JMenu controlMenu = new JMenu("Управление");
         menuBar.add(controlMenu);
