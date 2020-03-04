@@ -70,7 +70,7 @@ public class Kirpizh {
 
     public static void paint(Graphics2D canvas) {
 
-        color = new Color(255, 0, 36);
+
         canvas.setColor(color);
         canvas.fillRect(x, y, width, height);
     }

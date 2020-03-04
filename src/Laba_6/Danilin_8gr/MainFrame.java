@@ -98,6 +98,15 @@ public class MainFrame extends JFrame {
         };
         menuBar.add(KirpMenu);
         KirpMenu.add(addKirpAction);
+
+        Action delKirp = new AbstractAction("Удалить Кирпичей") {
+            public void actionPerformed(ActionEvent event) {
+                field.delKirp( );
+            }
+        };
+
+        menuBar.add(KirpMenu);
+        KirpMenu.add(delKirp);
     }
 
     // Главный метод приложения

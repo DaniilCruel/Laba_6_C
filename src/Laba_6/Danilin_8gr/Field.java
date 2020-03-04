@@ -23,10 +23,9 @@ public class Field extends JPanel {
 
     // Динамический список скачущих мячей
     private ArrayList<BouncingBall> balls = new ArrayList<BouncingBall>(10);
-    private ArrayList<Kirpizh> rect = new ArrayList<Kirpizh>(1);
-    // Класс таймер отвечает за регулярную генерацию событий ActionEvent
-    // При создании его экземпляра используется анонимный класс,
-    // реализующий интерфейс ActionListener
+    private ArrayList<Kirpizh> rect = new ArrayList<Kirpizh>(3);
+
+
     private Timer repaintTimer = new Timer(10, new ActionListener() {
         public void actionPerformed(ActionEvent ev) {
             // Задача обработчика события ActionEvent - перерисовка окна
@@ -59,9 +58,7 @@ public class Field extends JPanel {
 
     // Метод добавления нового мяча в список
     public void addBall() {
-        //Заключается в добавлении в список нового экземпляра BouncingBall
-        // Всю инициализацию положения, скорости, размера, цвета
-        // BouncingBall выполняет сам в конструкторе
+
         balls.add(new BouncingBall(this));
 
     }
@@ -80,8 +77,13 @@ public class Field extends JPanel {
 
     }
 
-    // Метод синхронизированный, т.е. только один поток может
-    // одновременно быть внутри
+    public void delKirp()
+    {
+
+        rect.remove(0);
+
+    }
+
 
 
     public  void pause1() {
