@@ -31,16 +31,8 @@ public class Kirpizh {
         return width;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     public static int getHeight() {
         return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 
     public static boolean contains(double mx, double my){
@@ -60,9 +52,7 @@ public class Kirpizh {
 
     public Kirpizh() {
 
-        // Необходимо иметь ссылку на поле, по которому прыгает мяч,
-        // чтобы отслеживать выход за его пределы
-        // через getWidth(), getHeight()
+
 
         color = new Color((float)Math.random(), (float)Math.random(), (float)Math.random());
 
@@ -72,6 +62,7 @@ public class Kirpizh {
 
 
         canvas.setColor(color);
+        canvas.setPaint(color);
         canvas.fillRect(x, y, width, height);
     }
 
