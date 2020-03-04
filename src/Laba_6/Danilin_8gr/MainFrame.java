@@ -21,6 +21,9 @@ public class MainFrame extends JFrame {
     private JMenuItem pauseMenuItem;
     private JMenuItem resumeMenuItem;
 
+    private JMenuItem KirpMenuItem;
+    private JMenuItem DLMenuItem;
+
     // Поле, по которому прыгают мячи
     private Field field = new Field();
 
@@ -94,19 +97,25 @@ public class MainFrame extends JFrame {
         Action addKirpAction = new AbstractAction("Добавить кирпич") {
             public void actionPerformed(ActionEvent event) {
                 field.addKirp();
+                KirpMenuItem.setEnabled(false);
+                DLMenuItem.setEnabled(true);
+
             }
         };
-        menuBar.add(KirpMenu);
-        KirpMenu.add(addKirpAction);
+        KirpMenuItem = KirpMenu.add(addKirpAction);
+        pauseMenuItem.setEnabled(false);
 
         Action delKirp = new AbstractAction("Удалить Кирпичей") {
             public void actionPerformed(ActionEvent event) {
                 field.delKirp( );
+                KirpMenuItem.setEnabled(true);
+                DLMenuItem.setEnabled(false);
             }
         };
 
-        menuBar.add(KirpMenu);
-        KirpMenu.add(delKirp);
+
+        DLMenuItem= KirpMenu.add(delKirp);
+        DLMenuItem.setEnabled(true);
     }
 
     // Главный метод приложения
