@@ -20,6 +20,7 @@ public class Field extends JPanel {
 
     // Флаг приостановленности движения
     private boolean paused;
+    private boolean paused1;
 
     // Динамический список скачущих мячей
     private ArrayList<BouncingBall> balls = new ArrayList<BouncingBall>(10);
@@ -59,6 +60,7 @@ public class Field extends JPanel {
     // Метод добавления нового мяча в список
     public void addBall() {
 
+        addMouseListener(new MouseHandler());
         balls.add(new BouncingBall(this));
 
     }
@@ -73,7 +75,7 @@ public class Field extends JPanel {
 
         rect.add(new Kirpizh());
         addMouseMotionListener(new MouseMotionHandler());
-        addMouseListener(new MouseHandler());
+
 
     }
 
@@ -89,6 +91,7 @@ public class Field extends JPanel {
     public  void pause1() {
         // Включить режим паузы
         paused = true;
+
     }
 
     // Метод синхронизированный, т.е. только один поток может
@@ -96,6 +99,7 @@ public class Field extends JPanel {
     public synchronized void resume() {
         // Выключить режим паузы
         paused = false;
+        paused1 = false;
         // Будим все ожидающие продолжения потоки
         notifyAll();
     }
@@ -105,22 +109,15 @@ public class Field extends JPanel {
     // (не включен ли режим паузы?)
     public synchronized void canMove(BouncingBall ball) throws
             InterruptedException {
-        if(paused)
-            wait();
+        if (paused) {
+                wait();
+        }
+        if (paused1)
+                if (ball.getRadius() < 10)
+                    wait();
+ ;
     }
 
-
-    /*
-     * нажатие кнопки мыши — идентификатор MOUSE_PRESSED;
-     * отпускание кнопки мыши — идентификатор MOUSE_RELEASED;
-     * щелчок кнопкой мыши — идентификатор MOUSE_CLICKED (нажатие и отпускание не различаются);
-     * перемещение мыши — идентификатор MOUSE_MOVED;
-     * перемещение мыши с нажатой кнопкой — идентификатор MOUSE_DRAGGED;
-     * появление курсора мыши в компоненте — идентификатор MOUSE_ENTERED;
-     * выход курсора мыши из компонента — идентификатор MOUSE_EXITED.
-     *
-     *
-     */
 
     public class MouseHandler extends MouseAdapter{
 
@@ -132,11 +129,15 @@ public class Field extends JPanel {
                     dragOffsetY = e.getY()- Kirpizh.getY();
                 }
             repaint();
+            if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) == 0) {
+                paused1 = true;
+            }
+            if ((e.getModifiers() & MouseEvent.BUTTON3_MASK) == 0) {
+                resume();
+            }
         }
 
-
     }
-
 
     public class MouseMotionHandler implements MouseMotionListener{
 
@@ -149,8 +150,6 @@ public class Field extends JPanel {
         }
 
         public void mouseMoved(MouseEvent e){
-			/*if (isDragged)
-				rectangle.setPos(e.getX(), e.getY());*/
         }
 
     }

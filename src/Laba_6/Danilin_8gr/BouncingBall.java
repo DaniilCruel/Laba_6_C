@@ -28,7 +28,7 @@ public class BouncingBall implements Runnable {
     private double speedY;
 
     //rectangle ter = new rectangle(null);
-
+    public int getRadius(){ return radius; }
 
     // Конструктор класса BouncingBall
     public BouncingBall(Field field) {
